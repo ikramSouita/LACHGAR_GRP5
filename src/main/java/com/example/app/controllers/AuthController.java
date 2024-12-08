@@ -51,21 +51,30 @@ public class AuthController {
     // Endpoint pour l'authentification
     @PostMapping("/login")
     public JwtResponse authenticateUser(@RequestBody LoginRequest loginRequest) {
+        System.out.println("Tentative de login pour : " + loginRequest.getEmail());
 
-        // Authentifier l'utilisateur
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getMotDePasse()));
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            loginRequest.getEmail(),
+                            loginRequest.getMotDePasse()
+                    )
+            );
 
-        // Si l'authentification est réussie, définir l'authentification dans le contexte
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+            System.out.println("Authentification réussie pour : " + loginRequest.getEmail());
 
-        // Générer le token JWT
-        String jwt = jwtUtils.generateJwtToken(authentication);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        // Obtenir les détails de l'utilisateur
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+            String jwt = jwtUtils.generateJwtToken(authentication);
 
-        // Retourner la réponse avec le token JWT
-        return new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getAuthorities());
+            System.out.println("Token généré : " + jwt);
+
+            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+            return new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getAuthorities());
+        } catch (Exception e) {
+            System.err.println("Erreur lors de l'authentification : " + e.getMessage());
+            throw e;
+        }
     }
+
 }

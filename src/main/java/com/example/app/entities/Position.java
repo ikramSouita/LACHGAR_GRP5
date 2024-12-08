@@ -31,6 +31,14 @@ public class Position {
         this.objetSuivi = objetSuivi;
     }
 
+    public Position(Long id, Double latitude, Double longitude, LocalDateTime timestamp, ObjetSuivi objetSuivi) {
+        this.id = id;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.timestamp = timestamp;
+        this.objetSuivi = objetSuivi;
+    }
+
     // Getters et Setters
 
     public Long getId() {

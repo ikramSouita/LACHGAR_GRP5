@@ -60,6 +60,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/users/**").hasAuthority("ADMINISTRATEUR")
+                        .requestMatchers("/api/machine-learning/**").authenticated()
+                        .requestMatchers("/api/machine-learning/**").hasAuthority("OPERATEUR")
                         .anyRequest().authenticated()
                 );
 
@@ -68,4 +70,5 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 }
