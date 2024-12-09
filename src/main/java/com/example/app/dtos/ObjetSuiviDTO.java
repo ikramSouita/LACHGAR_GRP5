@@ -16,6 +16,11 @@ public class ObjetSuiviDTO {
         this.utilisateurId = utilisateurId;
     }
 
+    public ObjetSuiviDTO(Long id, String nomObjet, String typeObjet) {
+        this.id = id;
+        this.nomObjet = nomObjet;
+        this.typeObjet = typeObjet;
+    }
 
     public Long getId() {
         return id;

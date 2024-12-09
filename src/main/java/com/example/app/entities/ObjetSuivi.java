@@ -19,17 +19,14 @@ public class ObjetSuivi {
     private List<Position> positions;
 
     // Relation avec User
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User utilisateur;
+
 
     // Constructeurs
     public ObjetSuivi() {}
 
-    public ObjetSuivi(String nomObjet, String typeObjet, User utilisateur) {
+    public ObjetSuivi(String nomObjet, String typeObjet) {
         this.nomObjet = nomObjet;
         this.typeObjet = typeObjet;
-        this.utilisateur = utilisateur;
     }
 
 
@@ -65,11 +62,5 @@ public class ObjetSuivi {
         this.positions = positions;
     }
 
-    public User getUtilisateur() {
-        return utilisateur;
-    }
 
-    public void setUtilisateur(User utilisateur) {
-        this.utilisateur = utilisateur;
-    }
 }

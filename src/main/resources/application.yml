@@ -1,0 +1,17 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: flask-service
+          uri: http://localhost:5001  # Adresse du service Flask
+          predicates:
+            - Path=/api/flask/**      # Capture toutes les requêtes commençant par /api/flask
+          filters:
+            - StripPrefix=2          # Supprime le premier segment "/api"
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty: DEBUG
+server:
+  port: 8083
